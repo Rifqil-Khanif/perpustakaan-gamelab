@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PERPUSTAKAAN GAMELAB</title>
+  <style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: url('https://lh3.googleusercontent.com/proxy/xq7dmwdX3GWDTwPlhPVQHnaFQJuuvlM6xyvPCtSoO1JwoeDS8GzYR5C5Y-VLBEsuEYjdiE7A0bRiqHQJ7_ZE8yxQvFJtcmBOlaAhUoU1sH8qHUeZ55COgpirCr3APAh73PN_HQ03Tp84gmqF8aXQ1k6YZmKlMLv7lm9WXMQKBqvfFAVhEGtWvuutrC4H8k0ARZEtR9mMeOc-2jZPIsGW6ls_kKHPO1Cv-gyyMUIPFqQCZE2DUxE2aU_NtvSZGG3ozrc=w1200-h630-p-k-no-nu');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .judul {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .tombol-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .btn:last-child {
+      margin-right: 0;
+    }
+
+    #daftarPengunjung {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .nama {
+      font-weight: bold;
+    }
+
+    .nomor-anggota,
+    .gender {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="judul">PERPUSTAKAAN GAMELAB</h1>
+
+    <div class="tombol-container">
+      <button class="btn" onclick="tambahPengunjung()">Tambah Pengunjung</button>
+      <button class="btn" onclick="tampilkanPengunjung()">Tampilkan Pengunjung</button>
+      <button class="btn" onclick="keluarProgram()">Keluar Program</button>
+    </div>
+
+    <div id="daftarPengunjung">
+      <ul></ul>
+    </div>
+  </div>
+
+  <script>
+    var daftarPengunjung = [];
+
+    function tambahPengunjung() {
+      var nama = prompt("Masukkan nama pengunjung:");
+      if (nama !== null && nama !== "") {
+        var nomorAnggota = prompt("Masukkan nomor anggota (opsional):");
+        var gender = prompt("Masukkan gender (opsional):");
+
+        var pengunjung = {
+          nama: nama,
+          nomorAnggota: nomorAnggota,
+          gender: gender
+        };
+
+        daftarPengunjung.push(pengunjung);
+        alert("Pengunjung berhasil ditambahkan!");
+      } else {
+        alert("Anda tidak menambahkan pengunjung dengan valid.");
+      }
+    }
+
+    function tampilkanPengunjung() {
+      var ul = document.querySelector("#daftarPengunjung ul");
+      ul.innerHTML = "";
+
+      if (daftarPengunjung.length === 0) {
+        alert("Belum ada pengunjung terdaftar.");
+      } else {
+        for (var i = 0; i < daftarPengunjung.length; i++) {
+          var pengunjung = daftarPengunjung[i];
+
+          var li = document.createElement("li");
+          li.innerHTML =
+            '<span class="nama">' +
+            pengunjung.nama +
+            '</span><br><span class="nomor-anggota">Nomor Anggota: ' +
+            (pengunjung.nomorAnggota || "-") +
+            '</span><br><span class="gender">Gender: ' +
+            (pengunjung.gender || "-") +
+            "</span>";
+
+          ul.appendChild(li);
+        }
+      }
+    }
+
+    function keluarProgram() {
+      var konfirmasi = confirm("Apakah Anda yakin ingin keluar dari program?");
+      if (konfirmasi) {
+        daftarPengunjung = [];
+        alert("Program berhasil ditutup.");
+        tampilkanPengunjung();
+      }
+    }
+  </script>
+</body>
+</html>
